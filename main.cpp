@@ -38,12 +38,18 @@ int main()
         
         if (!strncmp(c, "Go to the Bar", 100))
         {
-            std::cout << "You might wanna 'Talk to the Security' to get in.\n";
-            gone_bar = true;
-            is_home = false;
+            if (!gone_bar)
+            {
+                std::cout << "You might wanna 'Talk to the Security' to get in.\n";
+                gone_bar = true;
+                is_home = false;
+            }
+            else
+            {
+                std::cout << "Did you just forget that you are in a bar?\n";
+            }
             continue;
         }
-        
         else if (!strncmp(c, "Talk to the Security", 100))
         {
             if (gone_bar)
@@ -85,6 +91,8 @@ int main()
                 is_home = true;
                 talked_security = false;
                 age_checked = false;
+                talked_bartender = false;
+                talked_alexa = false;
                 std::cout << "You are home! Now what?\n";
             }
             else
@@ -92,6 +100,43 @@ int main()
                 std::cout << "Is there a home inside a home? 'Go to the Bar' instead of being a psycho at home.\n";
             }
             
+        }
+        else if (!strncmp(c, "Talk to the Bartender", 100))
+        {
+            if (talked_security and talked_alexa)
+            {
+                std::cout << "Red wine for Alexa, Have fun.\n";
+                talked_bartender = true;
+            }
+            else if (talked_security)
+            {
+                std::cout << "Here's your Perfect Vodka Martini. 'Talk to Alexa', she is sitting next to you.\n";
+                talked_bartender = true;
+            }
+            else if (gone_bar)
+            {
+                std::cout << "Come in, first! Clue: 'Talk to the Security\n";
+            }
+            else
+            {
+                std::cout << "Bartender is not omnipotenet. 'Go to the Bar' to talk\n";
+            }
+        }
+        else if (!strncmp(c, "Talk to Alexa", 100))
+        {
+            if (talked_security)
+            {
+                std::cout << "Hey Honey. I would like you if you 'Talk the Bartender' and order me a red wine? ;-)\n";
+                talked_alexa = true;
+            }
+            else if (gone_bar)
+            {
+                std::cout << "Come in, first! Clue: 'Talk to the Security\n";
+            }
+            else
+            {
+                std::cout << "Alexa in in bar. 'Go to the Bar' to talk\n";
+            }
         }
         else
         {
